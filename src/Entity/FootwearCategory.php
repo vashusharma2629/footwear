@@ -40,6 +40,7 @@ class FootwearCategory
      */
     private $createdAt;
 
+    
     /**
      * @ORM\Column(type="datetime")
      */

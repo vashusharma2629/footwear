@@ -39,7 +39,7 @@ class AdminDashboardController extends AbstractDashboardController
         if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_MANAGER')) {
             yield MenuItem::linkToCrud('FootwearCategory', 'fa fa-pie-chart', FootwearCategory::class);
             yield MenuItem::linkToCrud('FootwearProduct', 'fa fa-shopping-bag', FootwearProduct::class);
-            yield MenuItem::linkToCrud('Review', 'fa fa-comments', Review::class);
+            
         }
     
        

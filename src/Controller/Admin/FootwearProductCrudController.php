@@ -66,6 +66,10 @@ class FootwearProductCrudController extends AbstractCrudController
     
             return $actions 
             ->add(Crud::PAGE_INDEX, $importPostButton)
+            ->add(Crud::PAGE_INDEX, 'detail')
+            
+            
+           
             // ->add(Crud::PAGE_INDEX, $exportPostButton)
                 
                 // ...
@@ -75,7 +79,9 @@ class FootwearProductCrudController extends AbstractCrudController
             return $actions
             ->setPermission(Action::DELETE, 'ROLE_ADMIN')
              ->setPermission(Action::EDIT, 'ROLE_ADMIN')
-             ->setPermission(Action::NEW, 'ROLE_ADMIN');
+             ->setPermission(Action::NEW, 'ROLE_ADMIN')
+             ->add(Crud::PAGE_INDEX, 'detail')
+             
             ;
         }
        

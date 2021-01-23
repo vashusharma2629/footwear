@@ -20,7 +20,7 @@
 <!-- Bootstrap -->
 <link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css', 'default')}}" />
 <!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="{{asset('css/app.css', 'default')}}" />
+<link type="text/css" rel="stylesheet" href="{{asset('css/style.css', 'default')}}" />
 <!-- Favicon -->
 <link rel="icon" href="{{asset('img/favicon.ico', 'default')}}" type="image/x-icon"/>
     {% block stylesheets %}{% endblock %}
@@ -49,7 +49,7 @@
                         <li><a href="{{ path('get_all_Product') }}"><h1>Export Through API</h1></a></li>
                         <li><a href="{{ path('admin') }}"><h1>Admin Panal</h1></a></li>
                         {% elseif is_granted('ROLE_MANAGER') %}
-                        <li><h2>YOU ARE LOGGED IN AS MANAGER</h2></li>
+                        
                         <li><a href="{{ path('admin') }}"><h1>Manager Panal</h1></a></li>
                         {% else %}
                         
@@ -73,7 +73,7 @@
             {% block body %}{% endblock %}
 </div>
 <footer>
-<div class="container text-center p-20x">&copy; Copyright 2020, All Rights Reserved</div>
+<div class="container text-center p-20x ">&copy; Copyright 2020, All Rights Reserved</div>
 </footer>
 </div>
 {% block javascripts %}{% endblock %}
