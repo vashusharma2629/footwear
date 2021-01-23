@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Home1{% endblock %}
+{% block front_nav_right_section %}{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="row">
+
+        <div class="row">
+            
+                <div class="col-md-6">
+                    <div class="jumbotron">
+                        <div class="col-sm-8">
+                            <div class="card-body d-flex flex-column align-items-start">
+                                {# <strong class="d-inline-block mb-2 text-primary">World</strong> #}
+                               
+                                <div class="mb-1 text-muted">{{product.getCreatedAt()|date(date_format)}}</div>
+                                <p class="card-text mb-auto">COLOUR: {{product.getColour()|striptags|slice(0, 50)}}</p>
+                                 <p class="card-text mb-auto">FOOTWEAR TYPE: {{product.getFootwearType()|striptags|slice(0, 50)}}</p>
+                                  <p class="card-text mb-auto">BRAND: {{product.getBrand()|striptags|slice(0, 50)}}</p>
+                                   <p class="card-text mb-auto">SIZE:{{product.getSize()|striptags|slice(0, 50)}}</p>
+                                    <p class="card-text mb-auto">IDEAL FOR: {{product.getSection()|striptags|slice(0, 50)}}</p>
+                                     <p class="card-text mb-auto">DURABILITY: {{product.getDurability()|striptags|slice(0, 50)}}</p>
+                                      <p class="card-text mb-auto">EASE OF WEAR: {{product.getEaseToWear()|striptags|slice(0, 50)}}</p>
+                                       <p class="card-text mb-auto">TYPE OF SOLE: {{product.getSoleType()|striptags|slice(0, 50)}}</p>
+                                        <p class="card-text mb-auto">TYPE OF LACE {{product.getLaceType()|striptags|slice(0, 50)}}</p>
+                                         <p class="card-text mb-auto">MATERIAL TYPE: {{product.getMaterial()|striptags|slice(0, 50)}}</p>
+                                          <p class="card-text mb-auto">SHORT DESCRIPTION OF PRODUCT: {{product.getShortDescription()|striptags|slice(0, 50)}}</p>
+                                           <p class="card-text mb-auto">DETAILED DESCRIPTION OF PRODUCT: {{product.getDetailedDescription()|striptags|slice(0, 50)}}</p>
+                                             <p class="card-text mb-auto">QUANTITY IN STOCK: {{product.getQuantityInStock()|striptags|slice(0, 50)}}</p>
+                                              <p class="card-text mb-auto">MARKET PRICE: {{product.getMarketPrice()|striptags|slice(0, 50)}}Rs</p>
+                                               <p class="card-text mb-auto">DISCOUNT: {{product.getDiscount()|striptags|slice(0, 50)}}Rs</p>
+                                                <p class="card-text mb-auto">PRICE AFTER DISCOUNT: {{product.getSellingPrice()|striptags|slice(0, 50)}}Rs</p>
+                                                 <p class="card-text mb-auto">WEIGHT OF PRODUCT:{{product.getWeight()|striptags|slice(0, 50)}}Kg</p>
+                                
+                            </div>
+                        </div>
+                        {# <div class="col-sm-4"><img src="{{('uploads/products/' ~ product.getImage()) }}" width="170px" height="60px" alt="logo"></div> #}
+                        <div class="col-sm-4"><img data-src="holder.js/200x250?theme=thumb" width="170px" height="150px"  style="max-width: 100%;" src="{{('uploads/images/' ~ product.getProductImage()) }}" data-holder-rendered="true"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+        
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+
