@@ -58,7 +58,7 @@ class FootwearProductCrudController extends AbstractCrudController
 
     {
         $importPostButton = Action::new('importPost', 'Import')->setCssClass('btn btn-default')->createAsGlobalAction()->linkToCrudAction('importPost');
-        // $exportPostButton = Action::new('exportPost', 'Export')->setCssClass('btn btn-default')->createAsGlobalAction()->linkToCrudAction('exportPost');
+        
          
         
          
@@ -70,9 +70,7 @@ class FootwearProductCrudController extends AbstractCrudController
             
             
            
-            // ->add(Crud::PAGE_INDEX, $exportPostButton)
-                
-                // ...
+            
             ;
         }
         else{
@@ -209,18 +207,15 @@ class FootwearProductCrudController extends AbstractCrudController
                     $newPost->setSection($postItem->section);
                     $newPost->setSize($postItem->size);
 
-                    // $newPost->setPostType((!empty($postItem->post_type))?$postItem->post_type:'post');
                     if(!empty($cat)){
                         $newPost->setCategory($cat);
                     }
                     if(!empty($cat1)){
                         $newPost->setManager($cat1);
                     }
-                    // $newPost->setCategoryName($cat);
                     $newPost->setCreatedAt(new \DateTime());
                     $newPost->setUpdatedAt(new \DateTime());
-                    // $newPost->setUser($this->getUser());
-                    // $newPost->setStatus('draft');
+                    
                     $newPost->setDurability($postItem->durability);
                     $newPost->setEaseToWear($postItem->ease_to_wear);
                     $newPost->setSoleType($postItem->sole_type);
@@ -260,7 +255,7 @@ class FootwearProductCrudController extends AbstractCrudController
         ]);
     }
 /**
- * @Route("/api_all_product", name="get_all_Product", methods={"GET"})
+ * @Route("/api_footwear_product", name="get_all_Product", methods={"GET"})
  */
 public function getAll(): JsonResponse
 {

@@ -40,7 +40,7 @@ security:
          - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }        
          - { path: ^/home, roles: IS_AUTHENTICATED_ANONYMOUSLY}
          - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
-         - { path: ^/api_all_product, roles: ROLE_ADMIN}
+         - { path: ^/api_footwear_product, roles: ROLE_ADMIN}
          
          
          

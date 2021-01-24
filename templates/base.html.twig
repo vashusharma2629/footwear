@@ -47,10 +47,10 @@
                         {% if is_granted('ROLE_ADMIN') %}
 
                         <li><a href="{{ path('get_all_Product') }}"><h1>Export Through API</h1></a></li>
-                        <li><a href="{{ path('admin') }}"><h1>Admin Panal</h1></a></li>
+                        <li><a href="{{ path('admin') }}"><h1>Admin Panel</h1></a></li>
                         {% elseif is_granted('ROLE_MANAGER') %}
                         
-                        <li><a href="{{ path('admin') }}"><h1>Manager Panal</h1></a></li>
+                        <li><a href="{{ path('admin') }}"><h1>Manager Panel</h1></a></li>
                         {% else %}
                         
 {% endif %}

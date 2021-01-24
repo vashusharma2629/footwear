@@ -35,7 +35,7 @@ class AdminDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('User-Inormation', 'fa fa-users')->setPermission('ROLE_ADMIN');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+       
         if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_MANAGER')) {
             yield MenuItem::linkToCrud('FootwearCategory', 'fa fa-pie-chart', FootwearCategory::class);
             yield MenuItem::linkToCrud('FootwearProduct', 'fa fa-shopping-bag', FootwearProduct::class);
