@@ -2,9 +2,10 @@
 
 namespace App\Controller\Admin;
 
-
+use EasyCorp\Bundle\EasyAdminBundle\EventSubscriber\ExceptionListener;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+
 use App\Entity\FootwearProduct;
 use App\Entity\FootwearCategory;
 use App\Repository\FootwearProductRepository;
@@ -27,6 +28,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Psr\Log\LoggerInterface;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -58,7 +60,7 @@ class FootwearProductCrudController extends AbstractCrudController
 
     {
         $importPostButton = Action::new('importPost', 'Import')->setCssClass('btn btn-default')->createAsGlobalAction()->linkToCrudAction('importPost');
-        
+        $exportPostButton = Action::new('exportPost', 'Export')->setCssClass('btn btn-default')->createAsGlobalAction()->linkToCrudAction('exportPost');
          
         
          
@@ -66,6 +68,7 @@ class FootwearProductCrudController extends AbstractCrudController
     
             return $actions 
             ->add(Crud::PAGE_INDEX, $importPostButton)
+            ->add(Crud::PAGE_INDEX, $exportPostButton)
             ->add(Crud::PAGE_INDEX, 'detail')
             
             
@@ -78,13 +81,25 @@ class FootwearProductCrudController extends AbstractCrudController
             ->setPermission(Action::DELETE, 'ROLE_ADMIN')
              ->setPermission(Action::EDIT, 'ROLE_ADMIN')
              ->setPermission(Action::NEW, 'ROLE_ADMIN')
+            //  ->setPermission(Action::importpo, 'ROLE_ADMIN')
              ->add(Crud::PAGE_INDEX, 'detail')
+             
              
             ;
         }
        
                      
     }
+    public function configureCrud(Crud $crud): Crud{
+        if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_MANAGER')) {
+        
+            return $crud
+               
+                
+                
+            ;
+        }
+        }
 
     
     public function configureFields(string $pageName): iterable
@@ -194,55 +209,152 @@ class FootwearProductCrudController extends AbstractCrudController
            
             try{
                 $postData = json_decode($jsonData);
-               
+                $err="";
                 foreach ($postData as $postItem) {
                     $newPost = new FootwearProduct();
                     $cat= $this->FootwearCategoryRepository->find($postItem->category_id);
-                    $cat1= $this->UserRepository->find($postItem->manager_id);
+                    // $cat1= $this->UserRepository->find($postItem->manager_id);
+                    try{
                     $newPost->setFootwearType($postItem->footwear_type);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'Footwear Type missing');
+                    }
+                    try{
                     $newPost->setColour($postItem->colour);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'colour missing');
+                    }
+                    try{
                     $newPost->setBrand($postItem->brand);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'brand missing');
+                    }
                     $url = $postItem->product_image; 
                     $fname=basename($postItem->product_image); $img = 'uploads/images/'.$fname.''; file_put_contents($img, file_get_contents($url)); $newPost->setProductImage($fname);
+                    try{
                     $newPost->setSection($postItem->section);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'section missing');
+                    }
+                    try{
                     $newPost->setSize($postItem->size);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'size missing');
+                    }
 
                     if(!empty($cat)){
                         $newPost->setCategory($cat);
                     }
-                    if(!empty($cat1)){
-                        $newPost->setManager($cat1);
-                    }
+                    // if(!empty($cat1)){
+                    //     $newPost->setManager(getUser());
+                    // }
+                    $newPost->setManager($this->getUser());
+                    //$this->logger->info('after manager.');
+
                     $newPost->setCreatedAt(new \DateTime());
                     $newPost->setUpdatedAt(new \DateTime());
+                    $this->logger->info('after manager.');
                     
+                    try{
                     $newPost->setDurability($postItem->durability);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'durability missing');
+                    }
+                    try{
                     $newPost->setEaseToWear($postItem->ease_to_wear);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'ease to wear missing');
+                    }
+                   
+                    try{
                     $newPost->setSoleType($postItem->sole_type);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'sole type missing');
+                    }
+                    
+                    try{
                     $newPost->setLaceType($postItem->lace_type);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'lace type missing');
+                    }
+                    try{
                     $newPost->setMaterial($postItem->material);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'material missing');
+                    }
+                    try{
                     $newPost->setShortDescription($postItem->short_description);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'short description  missing');
+                    }
+                    try{
                     $newPost->setDetailedDescription($postItem->detailed_description);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'detailed description missing');
+                    }
+                    try{
                     $newPost->setQuantityInStock($postItem->quantity_in_stock);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'quantity in stock missing');
+                    }
+                    try{
                     $newPost->setMarketPrice($postItem->market_price);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'market price missing');
+                    }
+                    try{
                     $newPost->setDiscount($postItem->discount);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'discount missing');
+                    }
+                    try{
                     $newPost->setSellingPrice($postItem->selling_price);
+                    }catch(\Exception $e){
+                        $this->addFlash('error', 'selling price missing');
+                    }
+                    try{
                     $newPost->setWeight($postItem->weight);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'weight missing');
+                    }
+                    try{
                     $newPost->setOccasion($postItem->occasion);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'occasion missing');
+                    }
+                    try{
                     $newPost->setMadeIn($postItem->made_in);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'made in missing');
+                    }
+                    try{
                     $newPost->setRating($postItem->rating);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'rating missing');
+                    }
+                    try{
                     $newPost->setAttribute1($postItem->attribute1);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'attribute1 missing');
+                    }
+                    
                     $newPost->setStatus('NEW');
 
                     $entityManager->persist($newPost);
                     $entityManager->flush();
                 }
+           
+
 
                 $this->addFlash('success', 'Product(s) data has been imported successfully');
                 $this->logger->info('Data imported', $postData);
             } catch (\Exception $e){
+                //print_r($err);
                 $this->addFlash('error', 'Unable to import data correctly.');
+                
+
                 $this->logger->error('Unable to import data correctly.');
+               // $this->logger->err('Unable to import data correctly111111.');
             }
         }else{
             $this->logger->error('File was not uploaded');
@@ -255,9 +367,9 @@ class FootwearProductCrudController extends AbstractCrudController
         ]);
     }
 /**
- * @Route("/api_footwear_product", name="get_all_Product", methods={"GET"})
+ * @Route("/exportPost", name="get_all_Product", methods={"GET"})
  */
-public function getAll(): JsonResponse
+public function exportPost(): JsonResponse
 {
     $Product = $this->FootwearProductRepository->FindBy([
         'status' => 'PUBLISHED'

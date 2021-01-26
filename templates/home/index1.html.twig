@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} Home1{% endblock %}
-{% block front_nav_right_section %}{% endblock %}
+
+{% block front_nav_right_section %}
+{% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+<h1>MAKE SURE YOU ARE SIGNED IN</h1>
+{% endif  %}
+{% endblock %}
 
 {% block body %}
+ {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 <div class="container">
 
     <div class="row">
@@ -46,6 +52,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
 {% block javascripts %}{% endblock %}
 

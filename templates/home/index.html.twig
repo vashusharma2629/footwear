@@ -19,7 +19,7 @@
       <img src="uploads/images/sandals.jpeg" />
     </div>
     <div class="slide five">
-      <img src="uploads/images/peach.jpeg" />
+      <img src="uploads/images/brownloafers.jpeg" />
     </div>
     <div class="slide six">
       <img src="uploads/images/greyshoes.jpeg" />
@@ -48,10 +48,11 @@
                             <div class="card-body d-flex flex-column align-items-start">
                                 {# <strong class="d-inline-block mb-2 text-primary">World</strong> #}
                                 <h3 class="mb-0">
+                                
                                     <a class="text-dark" href="{{path('show_product', {id: product.getId()})}}">{{product.getFootwearType()}}</a>
                                 </h3>
-                                <div class="mb-1 text-muted">{{product.getCreatedAt()|date(date_format)}}</div>
-                                <p class="card-text mb-auto">{{product.getColour()|striptags|slice(0, 50)}}</p>
+                                <div class="mb-1 text-muted">Price :{{product.getSellingPrice()|striptags|slice(0, 50)}} Rs</div>
+                                <p class="card-text mb-auto">Colour :{{product.getColour()|striptags|slice(0, 50)}}</p>
                                 <a href="{{path('show_product', {id: product.getId()})}}">Continue reading</a>
                                 
                             </div>

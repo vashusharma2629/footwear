@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use EasyCorp\Bundle\EasyAdminBundle\EventSubscriber\ExceptionListener;
 
 use App\Entity\FootwearCategory;
 use App\Entity\FootwearProduct;

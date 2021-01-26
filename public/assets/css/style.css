@@ -2,12 +2,13 @@
 	position: relative;
 	height: 100vh;
 }
-.jumbotron-img {
-    background: rgb(237,116,88);
-    background: linear-gradient(302deg, rgba(237,116,88,1) 16%, rgba(51,61,81,1) 97%);
-    color: #fff;
-}
 
+.display-3{
+	text-align: center;
+	color:black;
+	font-family: 'Times New Roman', Times, serif;
+	
+}
 .section .section-center {
 	position: absolute;
 	top: 50%;
@@ -19,7 +20,7 @@
 
 body {
 	font-family: 'Cabin', sans-serif;
-	background-color: #f7f9fa;
+	background:url("https://wallpaperaccess.com/full/2797582.jpg");
 }
 
 .box-layout, .form {
@@ -173,8 +174,7 @@ body {
 	}
 }
 .navbar-default{
-	background-color: #ffffff;
-	border-radius: 0;
+	background:url("https://lh3.googleusercontent.com/proxy/_jXN5OsXpHHOaTsXtvyESHxPXA31wJ_53nA8m_aSZjZrYogDO8-6jMPS04XxhkQAiLr0w5KL_Dv5IN4BghW2qB6BMDb1h1lt10hb5a3091Q");
 }
 .p-20x{
 	padding: 20px;
@@ -250,7 +250,7 @@ body {
 	
 	width: 320px;
 	
-	margin: 10px auto 0 auto;
+	margin: 1px auto 0 auto;
 	
 	perspective: 1000px;
 	
@@ -298,11 +298,11 @@ body {
 	
 	height: 175px;
 	
-	border: 3px inset rgba(29, 203, 84, 0.75);
+	border: 1px inset rgba(24, 3, 3, 0.863);
 	
 	/* border-radius: 100%; */
 	
-	box-shadow: 0 0 15px 3px rgba(110, 72, 221, 0.9);
+	/* box-shadow: 0 0 15px 3px; */
 	
 	  }
 	

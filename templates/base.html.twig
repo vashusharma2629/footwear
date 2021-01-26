@@ -46,7 +46,7 @@
                     <ul class="nav navbar-nav">
                         {% if is_granted('ROLE_ADMIN') %}
 
-                        <li><a href="{{ path('get_all_Product') }}"><h1>Export Through API</h1></a></li>
+                       
                         <li><a href="{{ path('admin') }}"><h1>Admin Panel</h1></a></li>
                         {% elseif is_granted('ROLE_MANAGER') %}
                         
@@ -72,9 +72,7 @@
 <div class="container">
             {% block body %}{% endblock %}
 </div>
-<footer>
-<div class="container text-center p-20x ">&copy; Copyright 2020, All Rights Reserved</div>
-</footer>
+
 </div>
 {% block javascripts %}{% endblock %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
