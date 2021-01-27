@@ -30,6 +30,7 @@
             
              $entity->setCreatedAt(new \DateTime());
              $entity->setUpdatedAt(new \DateTime());
+             $entity->setManager($this->security->getUser());
              
             
              
@@ -43,6 +44,7 @@
          if ($entity instanceof FootwearProduct) {
             
              $entity->setUpdatedAt(new \DateTime());
+             $entity->setManager($this->security->getUser());
              
          }
          

@@ -506,6 +506,7 @@ class FootwearProduct
 
     public function toArray()          
         {
+            
             return [
                 'id' => $Products->getId(),
                 'footwear_type' => $Products->getFootwearType(),

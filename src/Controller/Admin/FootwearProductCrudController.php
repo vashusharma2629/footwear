@@ -108,7 +108,7 @@ class FootwearProductCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
             AssociationField::new('category'),
-            AssociationField::new('manager'),
+            AssociationField::new('manager')->hideOnForm(),
             TextField::new('footwear_type'),
             TextField::new('colour'),
             TextField::new('brand'),
@@ -212,7 +212,7 @@ class FootwearProductCrudController extends AbstractCrudController
                 $err="";
                 foreach ($postData as $postItem) {
                     $newPost = new FootwearProduct();
-                    $cat= $this->FootwearCategoryRepository->find($postItem->category_id);
+                    
                     // $cat1= $this->UserRepository->find($postItem->manager_id);
                     try{
                     $newPost->setFootwearType($postItem->footwear_type);
@@ -229,8 +229,15 @@ class FootwearProductCrudController extends AbstractCrudController
                     }catch (\Exception $e){
                         $this->addFlash('error', 'brand missing');
                     }
+                    try{
                     $url = $postItem->product_image; 
-                    $fname=basename($postItem->product_image); $img = 'uploads/images/'.$fname.''; file_put_contents($img, file_get_contents($url)); $newPost->setProductImage($fname);
+                    $fname=basename($postItem->product_image); $img = 'uploads/images/'.$fname.''; file_put_contents($img, file_get_contents($url)); 
+                    
+                        $newPost->setProductImage($fname);
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'image missing');
+                    }
+
                     try{
                     $newPost->setSection($postItem->section);
                     }catch (\Exception $e){
@@ -241,9 +248,13 @@ class FootwearProductCrudController extends AbstractCrudController
                     }catch (\Exception $e){
                         $this->addFlash('error', 'size missing');
                     }
-
+                    try{
+                        $cat= $this->FootwearCategoryRepository->find($postItem->category_id);
                     if(!empty($cat)){
                         $newPost->setCategory($cat);
+                    }}
+                    catch (\Exception $e){
+                        $this->addFlash('error', 'problem in category');
                     }
                     // if(!empty($cat1)){
                     //     $newPost->setManager(getUser());
@@ -409,7 +420,53 @@ public function exportPost(): JsonResponse
 
     return new JsonResponse($data);
 }
+    
+/**
+ * @Route("/exportProduct/{id}", name="get_Product", methods={"GET"})
+ */
+public function exportProduct($id, FootwearCategoryRepository $FootwearCategoryRepository): JsonResponse
+{
+    $Products = $this->FootwearProductRepository->Find($id);
+    
+     
+    
+     $data = [];
+
+    
+        $data[] = [
+                 'id' => $Products->getId(),
+                'footwear_type' => $Products->getFootwearType(),
+                'colour' => $Products->getColour(),
+                'brand' => $Products->getBrand(),
+                'product_image' => $Products->getProductImage(),
+                'section' => $Products->getSection(),
+                'size' => $Products->getSize(),
+                'created_at' => $Products->getCreatedAt(),
+                'updated_at' => $Products->getUpdatedAt(),
+                'durability' => $Products->getDurability(),
+                'ease_to_wear' => $Products->getEaseToWear(),
+                'sole_type' => $Products->getSoleType(),
+                'lace_type' => $Products->getLaceType(),
+                'material' => $Products->getMaterial(),
+                'short_description' => $Products->getShortDescription(),
+                'detailed_description' => $Products->getDetailedDescription(),
+                'quantity_in_stock' => $Products->getQuantityInStock(),
+                'market_price' => $Products->getMarketPrice(),
+                'discount' => $Products->getDiscount(),
+                'selling_price' => $Products->getSellingPrice(),
+                'weight' => $Products->getWeight(),
+                'occasion' => $Products->getOccasion(),
+                'made_in' => $Products->getMadeIn(),
+                'rating' => $Products->getRating(),
+                'attribute1' => $Products->getAttribute1(),
+                'status' => $Products->getStatus()
+        ];
+    
+
+    return new JsonResponse($data);
+}
 	
+
 
 }
  
